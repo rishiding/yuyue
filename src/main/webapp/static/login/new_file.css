@@ -1,0 +1,80 @@
+html,body {
+    background: url(./img/login-bg.jpg) no-repeat left top;
+    background-size: 100% 100%;
+    position: relative;
+    height: 100%;
+}
+
+.login-box {
+	padding: 0 37px 20px 37px;
+	width: 420px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -210px;
+	margin-top: -175px;
+	background: rgba(168,221,225,.5)
+}
+
+.login-box .login-top {
+	margin: 20px 0
+}
+
+.login-box .icon {
+	position: absolute;
+	left: 10px;
+	margin-bottom: 0;
+	top: 13px
+}
+
+.login-box .form-group {
+	position: relative
+}
+
+.login-box .form-control {
+	color: #666;
+	box-shadow: inset 0 0 20px #ccc;
+	padding:0 0 0 40px;
+	display:block;
+	width:380px;
+}
+
+.login-box .input-lg {
+	height: 55px
+}
+
+.login-box .btn-login {
+	background-image: url(./img/login-btn_03.png)!important;
+	width: 57px;
+	height: 57px;
+	background-size: 100% 100%;
+	border-radius: 50% 50%
+}
+
+.logo {
+	background: #fff;
+	border-radius: 50%;
+	width: 62px;
+	height: 62px;
+	display: inline-block;
+	margin-right: 20px;
+	line-height: 62px;
+	font-size: 24px
+}
+
+.icon {
+	display: inline-block;
+	width: 30px;
+	height: 30px
+}
+
+.icon-user_ {
+	background: url(./img/icon-user.png) no-repeat center center;
+	background-size: 100% 100%
+}
+
+.icon-password_ {
+	background: url(./img/icon-password.png) no-repeat center center;
+	background-size: 100% 100%
+}
+

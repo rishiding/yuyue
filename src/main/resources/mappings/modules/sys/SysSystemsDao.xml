@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rishi.reserve.modules.sys.dao.SysSystemsDao">
+    
+	<sql id="sysSystemsColumns">
+		a.id AS "id",
+		a.name AS "name",
+		a.url AS "url",
+		a.icon AS "icon",
+		a.note AS "note",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.modify_by AS "modifyBy",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		a.modify_date AS "modifyDate"
+	</sql>
+	
+	<sql id="sysSystemsJoins">
+	</sql>
+    
+	<select id="get" resultType="SysSystems">
+		SELECT 
+			<include refid="sysSystemsColumns"/>
+		FROM sys_systems a
+		<include refid="sysSystemsJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="SysSystems">
+		SELECT 
+			<include refid="sysSystemsColumns"/>
+		FROM sys_systems a
+		<include refid="sysSystemsJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="name != null and name != ''">
+				AND a.name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="SysSystems">
+		SELECT 
+			<include refid="sysSystemsColumns"/>
+		FROM sys_systems a
+		<include refid="sysSystemsJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO sys_systems(
+			id,
+			name,
+			url,
+			icon,
+			note,
+			create_by,
+			create_date,
+			modify_by,
+			remarks,
+			del_flag,
+			modify_date
+		) VALUES (
+			#{id},
+			#{name},
+			#{url},
+			#{icon},
+			#{note},
+			#{createBy.id},
+			#{createDate},
+			#{modifyBy},
+			#{remarks},
+			#{delFlag},
+			#{modifyDate}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE sys_systems SET 	
+			name = #{name},
+			url = #{url},
+			icon = #{icon},
+			note = #{note},
+			modify_by = #{modifyBy},
+			remarks = #{remarks},
+			modify_date = #{modifyDate}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE sys_systems SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>
