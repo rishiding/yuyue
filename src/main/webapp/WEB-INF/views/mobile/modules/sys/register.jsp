@@ -4,14 +4,10 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-        <title>${fns:getConfig('productName')}</title>
-        <link rel="stylesheet" href="${ctxStatic}/mobile/fonts/iconfont.css"/>
-        <link rel="stylesheet" href="${ctxStatic}/mobile/css/font.css"/>
-        <link rel="stylesheet" href="${ctxStatic}/mobile/css/weui.min.css"/>
-        <link rel="stylesheet" href="${ctxStatic}/mobile/css/jquery-weui.min.css"/>
-        <link rel="stylesheet" href="${ctxStatic}/mobile/css/mui.css"/>
-        <link rel="stylesheet" href="${ctxStatic}/mobile/css/animate.css"/>
-         <link rel="stylesheet" href="${ctxStatic}/mobile/css/pages/xunjia_wuliao_baojia.css"/>
+        <title>注册-${fns:getConfig('productName')}</title>
+         <%@include file="/WEB-INF/views/include/m_head.jsp" %>
+     <link rel="stylesheet" href="${ctxStatic}/mobile/css/pages/login.css"/>
+         <link rel="stylesheet" href="${ctxStatic}/mobile/css/pages/register.css"/>
           <style type="text/css">
 			 .msgs{display:inline-block;width:90px;color:#fff;font-size:12px;border:1px solid #0697DA;text-align:center;height:36px;line-height:36px;background:#0697DA;cursor:pointer;}
 			form .msgs1{background:#E6E6E6;color:#818080;border:1px solid #CCCCCC;}
@@ -38,12 +34,12 @@
                 <a href="javascript:history.go(-1)">
                     <i class="iconfont">&#xe640;</i>
                 </a>
-                <h1>注册</h1>
+                <h1>${fns:getConfig('productName')}</h1>
             </div>
         </header>
         
          <article style="bottom: 0;">
-          <form action="${ctx}/sys/user/save" method="post">
+          <form action="${ctx}/sys/user/save" id="jvForm" method="post">
             <ul class="xunjia-box">
                 
                 <li class="inner">
@@ -67,11 +63,19 @@
                         </div>
                     </div>
                 </li>
-                <li class="inner">
-                    <div class="item-name">用户名：</div>
+                 <li class="inner">
+                    <div class="item-name">姓名：</div>
                     <div class="item-value">
                         <div class="input-wrap">
-                            <input type="text" name="username">
+                            <input type="text" name="name">
+                        </div>
+                    </div>
+                </li>
+                <li class="inner">
+                    <div class="item-name">登录账名：</div>
+                    <div class="item-value">
+                        <div class="input-wrap">
+                            <input type="text" name="loginName">
                         </div>
                     </div>
                 </li>
@@ -103,18 +107,14 @@
                 </li>
                
             </ul>
-             <input class="weui_btn login-btn weui_btn_primary" type="submit" value="注册"/>&nbsp;&nbsp;
+             <input class="weui_btn login-btn weui_btn_primary" type="button" onclick="javascript:reg_click();" value="注册"/>&nbsp;&nbsp;
             </form>
         </article>
-        
-        <footer>
-           
-        </footer>
+        	 <%@include file="/WEB-INF/views/include/m_footer.jsp" %>
 
-        <script src="${ctxStatic}/mobile/lib/jquery-2.1.4.js"></script>
-        <script src="${ctxStatic}/mobile/js/jquery-weui.js"></script>
-          
+        
         <script type="text/javascript">
+        var codeflag = false;
         $(function() {
             //获取短信验证码
     		var validCode=true;
@@ -126,11 +126,11 @@
     			}
     			var code=$(this);
     			$.ajax({
-    				url:"${front}/sendCode?phone="+phone,
+    				url:"${front}/sms/sendCode?phone="+phone,
     				type:"get",
     				dataType:"json",
     				success:function(res){
-    					if(res == true){
+    					if(res.code == '200'){
     						var time=60;
     						
     						if (validCode) {
@@ -172,11 +172,11 @@
     			}
     			$(this).css({"border-color":""});
     			$.ajax({
-    				url:"${front}/checkPhoneCode?code="+val+"&phone="+phone,
+    				url:"${front}/sms/checkPhoneCode?code="+val+"&phone="+phone,
     				type:"get",
     				dataType:"json",
     				success:function(res){
-    					if(res == true){
+    					if(res.code == '200'){
     						codeflag = true;
     						$this.css({"border-color":""});
     					}else{
@@ -188,6 +188,33 @@
     			});
     		});
         });
+        function reg_click(){
+        	
+    	   
+    	    	if(!codeflag){
+    	    		alert("验证码不正确");
+    	    		return;
+    	    	}
+    	    	console.info($("#jvForm").serialize());
+    	    	$.ajax({
+    	    		url:"${front}/sms/register",
+    				type:"post",
+    				data: $("#jvForm").serialize(),
+    				dataType:"json",
+    				success:function(res){
+    					if(res.code == '200'){
+    						alert(res.message);
+    						history.go(-1);
+    					}else{
+    						
+    						alert(res.message);
+    						
+    					}
+    				}
+    	    	});
+    	    	
+    	   
+        }
         </script>
     </body>
 </html>

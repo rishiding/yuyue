@@ -6,12 +6,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
         <title>${fns:getConfig('productName')}</title>
-        <link rel="stylesheet" href="${ctxStatic}/mobile/fonts/iconfont.css"/>
-        <link rel="stylesheet" href="${ctxStatic}/mobile/css/font.css"/>
-        <link rel="stylesheet" href="${ctxStatic}/mobile/css/mui.css"/>
-        <link rel="stylesheet" href="${ctxStatic}/mobile/css/weui.min.css"/>
-        <link rel="stylesheet" href="${ctxStatic}/mobile/css/jquery-weui.min.css"/>
-        <link rel="stylesheet" href="${ctxStatic}/mobile/css/animate.css"/>
+        <%@include file="/WEB-INF/views/include/m_head.jsp" %>
+      
         <link rel="stylesheet" href="${ctxStatic}/mobile/css/pages/login.css"/>
         <script>(function (doc, win) {
           var docEl = doc.documentElement,
@@ -31,7 +27,7 @@
         <div class="header">
             <img src="${ctxStatic}/mobile/images/login_logo_w.png">
 
-            <h2>${fns:getConfig('productName')}</h2>
+            <h2> </h2>
         </div>
         <div class="login-wrap">
          <form action="${ctx}/login" method="post">
@@ -55,8 +51,6 @@
             </form>        
          
         </div>
-        <div class="footer">
-		Copyright &copy; 2017-${fns:getConfig('copyrightYear')} <a href="${pageContext.request.contextPath}${fns:getFrontPath()}">${fns:getConfig('productName')}</a> - Powered By <a href="#" target="_blank">rishi</a> ${fns:getConfig('version')} 
-	</div>
+          <%@include file="/WEB-INF/views/include/m_footer.jsp" %>
     </body>
 </html>
