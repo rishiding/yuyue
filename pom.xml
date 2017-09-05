@@ -75,7 +75,11 @@
 	
 	<!-- 依赖项定义 -->
 	<dependencies>
-	
+	<dependency>
+			<groupId>com.taobao</groupId>
+			<artifactId>sdk</artifactId>
+			<version>1.0</version>
+		</dependency>
 		<dependency>
 			<groupId>org.quartz-scheduler</groupId>
 			<artifactId>quartz</artifactId>

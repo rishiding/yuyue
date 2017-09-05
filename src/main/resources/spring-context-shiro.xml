@@ -20,6 +20,9 @@
 				/ued/**=anon			
 				${adminPath}/cas = cas
 				${adminPath}/login = authc
+				${adminPath}/register = anon
+				${adminPath}/sys/user/save = anon
+				${adminPath}/findpassword = anon
 				${adminPath}/logout = logout
 				${adminPath}/** = user
 				/ReportServer/** = user

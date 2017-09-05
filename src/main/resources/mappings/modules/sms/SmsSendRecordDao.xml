@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rishi.reserve.modules.sms.dao.SmsSendRecordDao">
+    
+	<sql id="smsSendRecordColumns">
+		a.id AS "id",
+		a.telphone AS "telphone",
+		a.content AS "content",
+		a.send_status AS "sendStatus",
+		a.send_out_body AS "sendOutBody",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="smsSendRecordJoins">
+	</sql>
+    
+	<select id="get" resultType="SmsSendRecord">
+		SELECT 
+			<include refid="smsSendRecordColumns"/>
+		FROM t_sms_send_record a
+		<include refid="smsSendRecordJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="SmsSendRecord">
+		SELECT 
+			<include refid="smsSendRecordColumns"/>
+		FROM t_sms_send_record a
+		<include refid="smsSendRecordJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>
+		<if test="telphone != null and telphone != ''">
+			AND a.telphone = #{telphone}
+		</if>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.create_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="SmsSendRecord">
+		SELECT 
+			<include refid="smsSendRecordColumns"/>
+		FROM t_sms_send_record a
+		<include refid="smsSendRecordJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>
+		<if test="telphone != null and telphone != ''">
+			AND a.telphone = #{telphone}
+		</if>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO t_sms_send_record(
+			id,
+			telphone,
+			content,
+			send_status,
+			send_out_body,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{telphone},
+			#{content},
+			#{sendStatus},
+			#{sendOutBody},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE t_sms_send_record SET 	
+			telphone = #{telphone},
+			content = #{content},
+			send_status = #{sendStatus},
+			send_out_body = #{sendOutBody},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE t_sms_send_record SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

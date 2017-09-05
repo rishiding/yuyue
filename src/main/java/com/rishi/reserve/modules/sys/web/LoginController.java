@@ -119,11 +119,11 @@ public class LoginController extends BaseController{
 	/**
 	 * 登录失败，真正登录的POST请求由Filter完成
 	 */
-	@RequestMapping(value = "${adminPath}/register", method = RequestMethod.POST)
+	@RequestMapping(value = "${adminPath}/register")
 	public String register(HttpServletRequest request, HttpServletResponse response, Model model) {
 		return "modules/sys/register";
 	}
-	@RequestMapping(value = "${adminPath}/findpassword", method = RequestMethod.POST)
+	@RequestMapping(value = "${adminPath}/findpassword")
 	public String findpassword(HttpServletRequest request, HttpServletResponse response, Model model) {
 		return "modules/sys/findpassword";
 	}
