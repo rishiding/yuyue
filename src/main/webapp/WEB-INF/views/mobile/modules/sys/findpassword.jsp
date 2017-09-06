@@ -7,26 +7,12 @@
         <title>找回密码-${fns:getConfig('productName')}</title>
          <%@include file="/WEB-INF/views/include/m_head.jsp" %>
      <link rel="stylesheet" href="${ctxStatic}/mobile/css/pages/login.css"/>
-         <link rel="stylesheet" href="${ctxStatic}/mobile/css/pages/register.css"/>
+     <link rel="stylesheet" href="${ctxStatic}/mobile/css/pages/register.css"/>
           <style type="text/css">
 			 .msgs{display:inline-block;width:90px;color:#fff;font-size:12px;border:1px solid #0697DA;text-align:center;height:36px;line-height:36px;background:#0697DA;cursor:pointer;}
 			form .msgs1{background:#E6E6E6;color:#818080;border:1px solid #CCCCCC;}
 			 </style>
-        <script>(function (doc, win) {
-          var docEl = doc.documentElement,
-            resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
-            recalc = function () {
-              var clientWidth = docEl.clientWidth;
-              if (!clientWidth) return;
-              docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
-            };
-
-          if (!doc.addEventListener) return;
-          win.addEventListener(resizeEvt, recalc, false);
-          doc.addEventListener('DOMContentLoaded', recalc, false);
-        })(document, window);
-        
-        </script>
+      
     </head>
     <body>
         <header>
@@ -34,7 +20,7 @@
                 <a href="javascript:history.go(-1)">
                     <i class="iconfont">&#xe640;</i>
                 </a>
-                <h1>${fns:getConfig('productName')}</h1>
+                <h1>找回密码</h1>
             </div>
         </header>
         
@@ -46,7 +32,7 @@
                     <div class="item-name">登录账名：</div>
                     <div class="item-value">
                         <div class="input-wrap">
-                            <input type="text" name="loginName">
+                            <input type="text" name="loginName"  id="loginName">
                         </div>
                     </div>
                 </li>
@@ -76,19 +62,19 @@
                     <div class="item-name">密码：</div>
                     <div class="item-value">
                         <div class="input-wrap">
-                            <input type="password" name ="password">
+                            <input type="password" id ="password" name ="password">
                         </div>
                     </div>
                 </li>
                  <li class="inner">
-                    <div class="item-name">缺密码：</div>
+                    <div class="item-name">重复密码：</div>
                     <div class="item-value">
                         <div class="input-wrap">
-                            <input type="password" name ="newpassword">
+                            <input type="password"  id ="newpassword" name ="newpassword">
                         </div>
                     </div>
                 </li>
-                <input class="weui_btn login-btn weui_btn_primary" type="button" onclick="javascript:find_click();" value="找回密码"/>&nbsp;&nbsp;
+                <input class="weui_btn login-btn weui_btn_primary" type="button" onclick="javascript:find_click();" value="确认"/>&nbsp;&nbsp;
                 </div>
               </ul>
               
@@ -176,11 +162,23 @@
         
         function check_click(){      	
      	   
+	    	
+	    	var phone=$("#mobile").val();
+	    	var loginName=$("#loginName").val();
+	    	if(loginName==""){
+	    		alert("登录账号不能为空");
+	    		$("#loginName").focus();
+	    		return ;
+	    	}
+	    	if(phone==""){
+	    		alert("手机号不能为空");
+	    		$("#mobile").focus();
+	    		return ;
+	    	}
 	    	if(!codeflag){
 	    		alert("验证码不正确");
 	    		return;
 	    	}
-	    	
 	    	$.ajax({
 	    		url:"${front}/sms/findUser",
 				type:"post",
@@ -203,11 +201,31 @@
         
         function find_click(){      	
     	   
+    	    	
+    	    	var pass1=$("#password").val();
+    	    	var pass2=$("#newpassword").val();
+    	    	if(pass1&&pass2){
+    	    		if(pass1!=pass2){
+    	    			alert("两次密码不一致");
+    	    			return;
+    	    		}
+    	    	}else{
+    	    		if(pass1==""){
+    	    			alert("密码不能为空");
+    	    			$("#password").focus();
+        	    		return;
+    	    		}
+    	    		if(pass2==""){
+    	    			alert("重复密码不能为空");
+    	    			$("#newpassword").focus();
+        	    		return;
+    	    		}
+    	    		
+    	    	}
     	    	if(!codeflag){
     	    		alert("验证码不正确");
     	    		return;
     	    	}
-    	    	console.info($("#jvForm").serialize());
     	    	$.ajax({
     	    		url:"${front}/sms/resetpassword",
     				type:"post",

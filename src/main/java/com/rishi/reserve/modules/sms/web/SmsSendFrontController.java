@@ -143,7 +143,7 @@ private static final int MINUS_TIME=30;//验证码有效期 30分钟
 		if(list!=null&&list.size()>0){
 			return new ResponseResult(ResponseCodeCanstants.SUCCESS, "ok");
 		}else{
-			return new ResponseResult(ResponseCodeCanstants.FAILED, "failed");
+			return new ResponseResult(ResponseCodeCanstants.FAILED, "没有找到匹配的用户");
 		}
 	}
 	

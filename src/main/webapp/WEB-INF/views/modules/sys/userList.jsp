@@ -68,6 +68,7 @@
 	<sys:message content="${message}"/>
 	<table id="contentTable" class="table table-striped table-bordered table-condensed">
 		<thead><tr>
+		<th>医院</th>
 		<th>科室</th>
 		<th class="sort-column login_name">登录名</th>
 		<th class="sort-column name">姓名</th>
@@ -79,6 +80,7 @@
 		<tbody>
 		<c:forEach items="${page.list}" var="user">
 				<tr>
+				<td>${user.company.name}</td>
 				<td>${user.office.name}</td>
 				<td><a href="${ctx}/sys/user/form?id=${user.id}">${user.loginName}</a></td>
 				<td>${user.name}</td>

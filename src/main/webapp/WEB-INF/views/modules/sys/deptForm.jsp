@@ -34,7 +34,14 @@
 		<form:hidden path="id"/>
 		<sys:message content="${message}"/>
 		
-		<input type="hidden" name="parent.id" value="1">
+		
+		<div class="control-group">
+			<label class="control-label">所属医院:</label>
+			<div class="controls">
+                <sys:treeselect id="office" name="parent.id" value="${office.parent.id}" labelName="parent.name" labelValue="${office.parent.name}"
+					title="机构" url="/sys/office/treeData?type=1" extId="${office.id}" cssClass="" allowClear="${office.currentUser.admin}"/>
+			</div>
+		</div>
 		<input type="hidden" name="area.id" value="0">
 		<div class="control-group">
 			<label class="control-label">科室名称:</label>

@@ -9,19 +9,7 @@
         <%@include file="/WEB-INF/views/include/m_head.jsp" %>
       
         <link rel="stylesheet" href="${ctxStatic}/mobile/css/pages/login.css"/>
-        <script>(function (doc, win) {
-          var docEl = doc.documentElement,
-            resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
-            recalc = function () {
-              var clientWidth = docEl.clientWidth;
-              if (!clientWidth) return;
-              docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
-            };
-
-          if (!doc.addEventListener) return;
-          win.addEventListener(resizeEvt, recalc, false);
-          doc.addEventListener('DOMContentLoaded', recalc, false);
-        })(document, window);</script>
+        
     </head>
     <body>
         <div class="header">
@@ -47,6 +35,7 @@
                 <a href="${ctx}/register" class="current">注册    &nbsp;</a>|
                 <a href="${ctx}/findpassword">&nbsp;忘记密码  &nbsp;</a>
             </div>
+            <br>
             <input class="weui_btn login-btn weui_btn_primary" type="submit" value="登 录"/>&nbsp;&nbsp;
             </form>        
          

@@ -3,76 +3,120 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-        <title>${fns:getConfig('productName')}</title>
-        <link rel="stylesheet" href="${ctxStatic}/mobile/fonts/iconfont.css"/>
-        <link rel="stylesheet" href="${ctxStatic}/mobile/css/font.css"/>
-        <link rel="stylesheet" href="${ctxStatic}/mobile/css/weui.min.css"/>
-        <link rel="stylesheet" href="${ctxStatic}/mobile/css/jquery-weui.min.css"/>
-        <link rel="stylesheet" href="${ctxStatic}/mobile/css/mui.css"/>
-        <link rel="stylesheet" href="${ctxStatic}/mobile/css/animate.css"/>
-        <link rel="stylesheet" href="${ctxStatic}/mobile/css/pages/person_info.css"/>
-        <script>(function (doc, win) {
-          var docEl = doc.documentElement,
-            resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
-            recalc = function () {
-              var clientWidth = docEl.clientWidth;
-              if (!clientWidth) return;
-              docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
-            };
+        <<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+        <title>个人信息-${fns:getConfig('productName')}</title>
+         <%@include file="/WEB-INF/views/include/m_head.jsp" %>
+  <link rel="stylesheet" href="${ctxStatic}/mobile/css/pages/register.css"/>
 
-          if (!doc.addEventListener) return;
-          win.addEventListener(resizeEvt, recalc, false);
-          doc.addEventListener('DOMContentLoaded', recalc, false);
-        })(document, window);</script>
-    </head>
-    <body>
-        <header>
-            <div class="titlebar reverse">
-                <a href="javascript:history.go(-1)">
+<script>
+	var message="${message}";
+	if(message){
+		alert(message);
+	}
+</script>     
+</head>
+
+<body>
+ <header>
+       <div class="titlebar reverse">
+                <a href="javascript:back()">
                     <i class="iconfont">&#xe640;</i>
                 </a>
-                <h1>注册</h1>
+                <h1>个人资料</h1>
             </div>
         </header>
-        <article style="bottom: 54px;">
-            <div class="weui_cells weui_cells_access animated fadeInRight">
-              <a class="weui_cell" href="javascript:;">
+     <form id="jvForm" action="${ctx}/sys/user/info" method="post" > 
+         <article>
+         <br>
+         <input type="hidden" name="id" value="${user.id}">
+        <ul class="xunjia-box">
+        	<li class="inner">
+                 <div class="item-name">登录账号:</div>
+                  <div class="item-value">${user.name}</div>
+               </li>               
+              
+               <li class="inner">
+                  <div class="item-name">姓名:</div>
+                  <div class="item-value">
+                   	<div class="input-wrap">
+                         <input type="text" name="name" value="${user.name}"   />
+                        </div>
+                  </div>
+               </li>
+                <li class="inner">
+                    <div class="item-name">手机:</div>
+                    <div class="item-value">
+                   	<div class="input-wrap">
+                         <input type="text" name="mobile" value="${user.mobile}"   />
+                        </div>
+                  </div>
+                </li>
+               <li class="inner">
+                  <div class="item-name">性别:</div>
+                  <div class="item-value">
+                   	<div class="input-wrap">                   	  
+					           <select name="gender" >                       			
+								<c:forEach items="${fns:getDictList('sex')}" var="obj">
+								<option value="${obj.value}" <c:if test="${obj.value==user.gender}">selected</c:if> >${obj.label}</option>
+								</c:forEach>
+							</select>
+					    </div>
+                       
+                  </div>
+               </li>
+               <li class="inner">
+                  <div class="item-name">证件类型:</div>
+                  <div class="item-value">
+                   	<div class="input-wrap">
+                        <select name="cardType" >                       			
+								<c:forEach items="${fns:getDictList('card_type')}" var="obj">
+								<option value="${obj.value}" <c:if test="${obj.value==user.cardType}">selected</c:if> >${obj.label}</option>
+								</c:forEach>
+							</select>
+                        </div>
+                  </div>
+               </li>
+                <li class="inner">
+                  <div class="item-name">证号号码:</div>
+                  <div class="item-value">
+                   	<div class="input-wrap">
+                        <input type="text" name="cardNo" id="cardNo" value="${user.cardNo}" ></input>
+                        </div>
+                  </div>
+               </li>
+               
+                 <li class="inner">
+                    <div class="item-name">E-mail:</div>
+                    <div class="item-value">
+                        <div class="input-wrap">
+                         <input type="text" name="email" value="${user.email}"    />
+                        </div>
+                    </div>
+                </li>
+                
+                <li class="inner">
+                    <div class="item-name">备注:</div>
+                    <div class="item-value">
+                        <div class="input-wrap">
+                         <input type="text" name="remarks" value="${user.remarks}"    />
+                          <input type="hidden" name="photo" value="${user.photo}"    />
+                        </div>
+                    </div>
+                </li>
+                 
+        </ul>
+        </article>
+            <div class="weui_cells weui_cells_access animated fadeInRight">            
+			  <a class="weui_cell" href="javascript:;">
                 <div class="weui_cell_bd weui_cell_primary">
                     <div class="weui-row weui-no-gutter">
-                        <div class="label weui-col-20">姓名:</div>
-                        <div class="weui-col-80">uimaker</div>
+                 		<input type="submit" value="保 存" class="weui_btn weui_btn_primary"/>
                     </div>
                 </div>
               </a>
-              <a class="weui_cell" href="javascript:;">
-                <div class="weui_cell_bd weui_cell_primary">
-                    <div class="weui-row weui-no-gutter">
-                        <div class="label weui-col-20">手机:</div>
-                        <div class="weui-col-60">13338949806</div>
-                        <div href="javascript:;" class="weui_btn weui_btn_mini weui_btn_warn">按钮</div>
-                    </div>
-                </div>
-              </a>
-              <a class="weui_cell" href="javascript:;">
-                <div class="weui_cell_bd weui_cell_primary">
-                    <div class="weui-row weui-no-gutter">
-                        <div class="label weui-col-20">邮箱:</div>
-                        <div class="weui-col-60">admin@uimaker.com</div>
-                        <div href="javascript:;" class="weui_btn weui_btn_mini weui_btn_primary">按钮</div>
-                    </div>
-                </div>
-              </a>
-              <a class="weui_cell" href="javascript:;">
-                <div class="weui_cell_bd weui_cell_primary">
-                    <div class="weui-row weui-no-gutter">
-                        <div class="label weui-col-20">组织:</div>
-                        <div class="weui-col-80">南京信息科技有限公司</div>
-                    </div>
-                </div>
-              </a>
+                
             </div>
-        </article>        
-        
+            </form>    
+          <%@include file="/WEB-INF/views/include/m_foot.jsp" %>
     </body>
 </html>

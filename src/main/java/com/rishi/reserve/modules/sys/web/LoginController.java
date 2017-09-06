@@ -181,7 +181,7 @@ public class LoginController extends BaseController{
 	 */
 	@RequiresPermissions("user")
 	@RequestMapping(value = "${adminPath}")
-	public String index(HttpServletRequest request, HttpServletResponse response) {
+	public String index(HttpServletRequest request, HttpServletResponse response, Model model) {
 		Principal principal = UserUtils.getPrincipal();
 
 		// 登录成功后，验证码计算器清零
@@ -190,7 +190,8 @@ public class LoginController extends BaseController{
 		if (logger.isDebugEnabled()){
 			logger.debug("show index, active session size: {}", sessionDAO.getActiveSessions(false).size());
 		}
-		
+		User user=UserUtils.getUser();
+		model.addAttribute("user", user);
 		// 如果已登录，再次访问主页，则退出原账号。
 		if (Global.TRUE.equals(Global.getConfig("notAllowRefreshIndex"))){
 			String logined = CookieUtils.getCookie(request, LOGINED);

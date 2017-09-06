@@ -282,6 +282,8 @@
 			update_by = #{updateBy.id}, 
 			update_date = #{updateDate}, 
 			remarks = #{remarks},
+			card_no =#{cardNo},
+    		card_type=#{cardType},
 			photo = #{photo}
 		WHERE id = #{id}
 	</update>

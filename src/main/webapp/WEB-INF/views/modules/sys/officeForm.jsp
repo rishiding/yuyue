@@ -42,14 +42,14 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">机构名称:</label>
+			<label class="control-label">医院名称:</label>
 			<div class="controls">
 				<form:input path="name" htmlEscape="false" maxlength="50" class="required"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">机构编码:</label>
+			<label class="control-label">医院编码:</label>
 			<div class="controls">
 				<form:input path="code" htmlEscape="false" maxlength="50"/>
 			</div>

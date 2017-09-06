@@ -12,21 +12,7 @@
 			 .msgs{display:inline-block;width:90px;color:#fff;font-size:12px;border:1px solid #0697DA;text-align:center;height:36px;line-height:36px;background:#0697DA;cursor:pointer;}
 			form .msgs1{background:#E6E6E6;color:#818080;border:1px solid #CCCCCC;}
 			 </style>
-        <script>(function (doc, win) {
-          var docEl = doc.documentElement,
-            resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
-            recalc = function () {
-              var clientWidth = docEl.clientWidth;
-              if (!clientWidth) return;
-              docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
-            };
-
-          if (!doc.addEventListener) return;
-          win.addEventListener(resizeEvt, recalc, false);
-          doc.addEventListener('DOMContentLoaded', recalc, false);
-        })(document, window);
-        
-        </script>
+       
     </head>
     <body>
         <header>
@@ -34,7 +20,7 @@
                 <a href="javascript:history.go(-1)">
                     <i class="iconfont">&#xe640;</i>
                 </a>
-                <h1>${fns:getConfig('productName')}</h1>
+                <h1>注册</h1>
             </div>
         </header>
         
@@ -43,6 +29,7 @@
             <ul class="xunjia-box">
                 
                 <li class="inner">
+                <input type="hidden" name="userType" value="3"></input>
                     <div class="item-name">证件类型：</div>
                     <div class="item-value">
                         <div class="input-wrap">
@@ -55,6 +42,7 @@
                         </div>
                     </div>
                 </li>
+                	
                 <li class="inner">
                     <div class="item-name">证件号码：</div>
                     <div class="item-value">
@@ -83,7 +71,7 @@
                     <div class="item-name">密码：</div>
                     <div class="item-value">
                         <div class="input-wrap">
-                            <input type="text" name ="password">
+                            <input type="password" name ="password">
                         </div>
                     </div>
                 </li>

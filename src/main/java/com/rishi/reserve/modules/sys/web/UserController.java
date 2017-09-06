@@ -26,6 +26,8 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.rishi.reserve.common.beanvalidator.BeanValidators;
 import com.rishi.reserve.common.config.Global;
+import com.rishi.reserve.common.config.ResponseCodeCanstants;
+import com.rishi.reserve.common.config.ResponseResult;
 import com.rishi.reserve.common.persistence.Page; 
 import com.rishi.reserve.common.utils.DateUtils;
 import com.rishi.reserve.common.utils.StringUtils; 
@@ -36,7 +38,6 @@ import com.rishi.reserve.modules.sys.entity.Office;
 import com.rishi.reserve.modules.sys.entity.Role;
 import com.rishi.reserve.modules.sys.entity.User;
 import com.rishi.reserve.modules.sys.service.SystemService;
-import com.rishi.reserve.modules.sys.utils.DictUtils;
 import com.rishi.reserve.modules.sys.utils.UserUtils;
 
 /**
@@ -62,7 +63,9 @@ public class UserController extends BaseController {
 
 	@RequiresPermissions("sys:user:view")
 	@RequestMapping(value = {"index"})
-	public String index(User user, Model model) {
+	public String index( Model model) {
+		User user=UserUtils.getUser();
+		model.addAttribute("user",user);
 		return "modules/sys/userIndex";
 	}
 
@@ -329,6 +332,34 @@ public class UserController extends BaseController {
 		}
 		model.addAttribute("user", user);
 		return "modules/sys/userModifyPwd";
+	}
+	@ResponseBody
+	@RequestMapping(value = "/imageUnload", method = RequestMethod.POST)
+	public Object imageUnload(HttpServletRequest request,String id,String byteString,
+			HttpServletResponse response, Model model) {
+		
+		String out="0";
+		
+		if(id!=null){
+			User user = systemService.getUser(id);
+			if(user!=null){
+				String path=UploadifyController.saveByteImg(request, byteString);
+				System.out.println(path);
+				if(path!=null&&!path.equals("")){
+					user.setPhoto(path);
+					systemService.saveUser(user);
+					out="1";
+				}
+				
+			}
+		}
+		return new ResponseResult(ResponseCodeCanstants.SUCCESS, out);
+	}
+	@RequestMapping(value = "headImg")
+	public String headImg(Model model) {
+		User user = UserUtils.getUser();
+		model.addAttribute("user", user);
+		return "modules/sys/userHeadImg";
 	}
 	/**
 	 * 单独密码修改
