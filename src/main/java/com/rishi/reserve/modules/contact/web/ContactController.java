@@ -21,6 +21,7 @@ import com.rishi.reserve.common.web.BaseController;
 import com.rishi.reserve.common.utils.StringUtils;
 import com.rishi.reserve.modules.contact.entity.Contact;
 import com.rishi.reserve.modules.contact.service.ContactService;
+import com.rishi.reserve.modules.sys.utils.UserUtils;
 
 /**
  * 联系人Controller
@@ -49,6 +50,10 @@ public class ContactController extends BaseController {
 	@RequiresPermissions("contact:contact:view")
 	@RequestMapping(value = {"list", ""})
 	public String list(Contact contact, HttpServletRequest request, HttpServletResponse response, Model model) {
+		if(contact==null){
+			contact=new Contact();
+		}
+		contact.setUser(UserUtils.getUser());
 		Page<Contact> page = contactService.findPage(new Page<Contact>(request, response), contact); 
 		model.addAttribute("page", page);
 		return "modules/contact/contactList";
@@ -64,9 +69,12 @@ public class ContactController extends BaseController {
 	@RequiresPermissions("contact:contact:edit")
 	@RequestMapping(value = "save")
 	public String save(Contact contact, Model model, RedirectAttributes redirectAttributes) {
+		contact.setUser(UserUtils.getUser());
 		if (!beanValidator(model, contact)){
 			return form(contact, model);
 		}
+		
+		
 		contactService.save(contact);
 		addMessage(redirectAttributes, "保存联系人成功");
 		return "redirect:"+Global.getAdminPath()+"/contact/contact/?repage";

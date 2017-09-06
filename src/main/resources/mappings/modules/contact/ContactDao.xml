@@ -13,6 +13,7 @@
 		a.telphone AS "telphone",
 		a.height AS "height",
 		a.weight AS "weight",
+		a.idno AS "idno",
 		a.create_by AS "createBy.id",
 		a.create_date AS "createDate",
 		a.update_by AS "updateBy.id",
@@ -97,6 +98,7 @@
 			update_by,
 			update_date,
 			remarks,
+			idno,
 			del_flag
 		) VALUES (
 			#{id},
@@ -114,6 +116,7 @@
 			#{updateBy.id},
 			#{updateDate},
 			#{remarks},
+			#{idno},
 			#{delFlag}
 		)
 	</insert>
@@ -131,6 +134,7 @@
 			weight = #{weight},
 			update_by = #{updateBy.id},
 			update_date = #{updateDate},
+			idno = #{idno},
 			remarks = #{remarks}
 		WHERE id = #{id}
 	</update>

@@ -92,7 +92,7 @@
     		$(".msgs").click (function  () {
     			var phone=$("#mobile").val();
     			if(!phone){
-    				alert("请先输入手机号");
+    				layer.msg("请先输入手机号");
     				return;
     			}
     			var code=$(this);
@@ -119,7 +119,7 @@
     							},1000);
     						}
     					}else{
-    						alert("验证码发送失败");
+    						layer.msg("验证码发送失败");
     						
     					}
     				}
@@ -130,7 +130,7 @@
     		$("#code").change(function(){
     			var phone=$("#mobile").val();
     			if(!phone){
-    				alert("请先输入手机号");
+    				layer.msg("请先输入手机号");
     				return;
     			}
     			var $this = $(this);
@@ -138,7 +138,7 @@
     			if(val.length!=4){
     				$(this).css({"border-color":"red"});
     				codeflag = false;
-    				alert("验证码不正确")
+    				layer.msg("验证码不正确")
     				return;
     			}
     			$(this).css({"border-color":""});
@@ -152,7 +152,7 @@
     						$this.css({"border-color":""});
     					}else{
     						codeflag = false;
-    						alert("验证码不正确");
+    						layer.msg("验证码不正确");
     						$this.css({"border-color":"red"});
     					}
     				}
@@ -166,17 +166,17 @@
 	    	var phone=$("#mobile").val();
 	    	var loginName=$("#loginName").val();
 	    	if(loginName==""){
-	    		alert("登录账号不能为空");
+	    		layer.msg("登录账号不能为空");
 	    		$("#loginName").focus();
 	    		return ;
 	    	}
 	    	if(phone==""){
-	    		alert("手机号不能为空");
+	    		layer.msg("手机号不能为空");
 	    		$("#mobile").focus();
 	    		return ;
 	    	}
 	    	if(!codeflag){
-	    		alert("验证码不正确");
+	    		layer.msg("验证码不正确");
 	    		return;
 	    	}
 	    	$.ajax({
@@ -190,7 +190,7 @@
 						 $("#pass1").hide();
 					}else{
 						
-						alert(res.message);
+						layer.msg(res.message);
 						
 					}
 				}
@@ -206,24 +206,24 @@
     	    	var pass2=$("#newpassword").val();
     	    	if(pass1&&pass2){
     	    		if(pass1!=pass2){
-    	    			alert("两次密码不一致");
+    	    			layer.msg("两次密码不一致");
     	    			return;
     	    		}
     	    	}else{
     	    		if(pass1==""){
-    	    			alert("密码不能为空");
+    	    			layer.msg("密码不能为空");
     	    			$("#password").focus();
         	    		return;
     	    		}
     	    		if(pass2==""){
-    	    			alert("重复密码不能为空");
+    	    			layer.msg("重复密码不能为空");
     	    			$("#newpassword").focus();
         	    		return;
     	    		}
     	    		
     	    	}
     	    	if(!codeflag){
-    	    		alert("验证码不正确");
+    	    		layer.msg("验证码不正确");
     	    		return;
     	    	}
     	    	$.ajax({
@@ -233,11 +233,11 @@
     				dataType:"json",
     				success:function(res){
     					if(res.code == '200'){
-    						alert(res.message);
+    						layer.msg(res.message);
     						history.go(-1);
     					}else{
     						
-    						alert(res.message);
+    						layer.msg(res.message);
     						
     					}
     				}

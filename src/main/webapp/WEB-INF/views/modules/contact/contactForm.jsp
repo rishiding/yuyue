@@ -33,14 +33,7 @@
 	<form:form id="inputForm" modelAttribute="contact" action="${ctx}/contact/contact/save" method="post" class="form-horizontal">
 		<form:hidden path="id"/>
 		<sys:message content="${message}"/>		
-		<div class="control-group">
-			<label class="control-label">所属用户：</label>
-			<div class="controls">
-				<sys:treeselect id="user" name="user.id" value="${contact.user.id}" labelName="user.name" labelValue="${contact.user.name}"
-					title="用户" url="/sys/office/treeData?type=3" cssClass="required" allowClear="true" notAllowSelectParent="true"/>
-				<span class="help-inline"><font color="red">*</font> </span>
-			</div>
-		</div>
+		
 		<div class="control-group">
 			<label class="control-label">姓名：</label>
 			<div class="controls">
@@ -51,13 +44,16 @@
 		<div class="control-group">
 			<label class="control-label">性别：</label>
 			<div class="controls">
-				<form:input path="gender" htmlEscape="false" maxlength="2" class="input-xlarge "/>
+			<form:select path="gender">
+					<form:options items="${fns:getDictList('sex')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
+			
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">出生日期：</label>
 			<div class="controls">
-				<form:input path="birthday" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="birthday" htmlEscape="false" maxlength="50" class="input-xlarge "  onclick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false});"/>
 			</div>
 		</div>
 		<div class="control-group">
@@ -69,7 +65,8 @@
 		<div class="control-group">
 			<label class="control-label">头像：</label>
 			<div class="controls">
-				<form:input path="headImg" htmlEscape="false" maxlength="500" class="input-xlarge "/>
+				<form:hidden id="nameImage" path="headImg" htmlEscape="false" maxlength="255" class="input-xlarge"/>
+				<sys:ckfinder input="nameImage" type="images" uploadPath="/photo" selectMultiple="false" maxWidth="100" maxHeight="100"/>
 			</div>
 		</div>
 		<div class="control-group">
@@ -91,7 +88,13 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">备注信息 : 备注信息：</label>
+			<label class="control-label">身份证号：</label>
+			<div class="controls">
+				<form:input path="idno" htmlEscape="false" maxlength="20" class="input-xlarge "/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">备注信息 ：</label>
 			<div class="controls">
 				<form:textarea path="remarks" htmlEscape="false" rows="4" maxlength="255" class="input-xxlarge "/>
 			</div>

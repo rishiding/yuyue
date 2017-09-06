@@ -65,7 +65,7 @@ $("#clipBtn").click(function(){
 		    url:'${ctx}/sys/user/imageUnload',
 		    type:'POST', 
 		    async:false,    
-		    data:{id:${user.id}, byteString:imgsource},	   
+		    data:{id:'${user.id}', byteString:imgsource},	   
 		    dataType:'json',      
 		    success:function(data){
 		        if(data.code='2000'){

@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-        <title>个人信息-${fns:getConfig('productName')}</title>
+        <title>常用联系人-${fns:getConfig('productName')}</title>
          <%@include file="/WEB-INF/views/include/m_head.jsp" %>
   <link rel="stylesheet" href="${ctxStatic}/mobile/css/pages/register.css"/>
 
@@ -22,42 +22,29 @@
                 <a href="javascript:back()">
                     <i class="iconfont">&#xe640;</i>
                 </a>
-                <h1>个人资料</h1>
+                <h1>常用联系人</h1>
             </div>
         </header>
-     <form id="jvForm" action="${ctx}/sys/user/info" method="post" > 
+     <form id="jvForm" action="${ctx}/contact/contact/save" method="post" > 
          <article>
          <br>
-         <input type="hidden" name="id" value="${user.id}">
+         <input type="hidden" name="id" value="${contact.id}">
         <ul class="xunjia-box">
         	<li class="inner">
-                 <div class="item-name">登录账号:</div>
-                  <div class="item-value">${user.loginName}</div>
+                 <div class="item-name">昵称:</div>
+                 <div class="item-value">
+                   	<div class="input-wrap">
+                   <input type="text" name="nickName" value="${contact.nickName}"/>
+                  </div>
+                  </div>
                </li>               
-              
-               <li class="inner">
-                  <div class="item-name">姓名:</div>
-                  <div class="item-value">
-                   	<div class="input-wrap">
-                         <input type="text" name="name" value="${user.name}"   />
-                        </div>
-                  </div>
-               </li>
-                <li class="inner">
-                    <div class="item-name">手机:</div>
-                    <div class="item-value">
-                   	<div class="input-wrap">
-                         <input type="text" name="mobile" value="${user.mobile}"   />
-                        </div>
-                  </div>
-                </li>
-               <li class="inner">
+              <li class="inner">
                   <div class="item-name">性别:</div>
                   <div class="item-value">
                    	<div class="input-wrap">                   	  
 					           <select name="gender" >                       			
 								<c:forEach items="${fns:getDictList('sex')}" var="obj">
-								<option value="${obj.value}" <c:if test="${obj.value==user.gender}">selected</c:if> >${obj.label}</option>
+								<option value="${obj.value}" <c:if test="${obj.value==contact.gender}">selected</c:if> >${obj.label}</option>
 								</c:forEach>
 							</select>
 					    </div>
@@ -65,41 +52,60 @@
                   </div>
                </li>
                <li class="inner">
-                  <div class="item-name">证件类型:</div>
+                  <div class="item-name">出生日期:</div>
                   <div class="item-value">
                    	<div class="input-wrap">
-                        <select name="cardType" >                       			
-								<c:forEach items="${fns:getDictList('card_type')}" var="obj">
-								<option value="${obj.value}" <c:if test="${obj.value==user.cardType}">selected</c:if> >${obj.label}</option>
-								</c:forEach>
-							</select>
+                         <input type="text" name="birthday" value="${contact.birthday}"   />
                         </div>
                   </div>
                </li>
                 <li class="inner">
-                  <div class="item-name">证号号码:</div>
+                  <div class="item-name">真实姓名:</div>
                   <div class="item-value">
                    	<div class="input-wrap">
-                        <input type="text" name="cardNo" id="cardNo" value="${user.cardNo}" ></input>
+                         <input type="text" name="name" value="${contact.name}"   />
                         </div>
                   </div>
                </li>
-               
-                 <li class="inner">
-                    <div class="item-name">E-mail:</div>
-                    <div class="item-value">
-                        <div class="input-wrap">
-                         <input type="text" name="email" value="${user.email}"    />
+                <li class="inner">
+                  <div class="item-name">身份证号:</div>
+                  <div class="item-value">
+                   	<div class="input-wrap">
+                         <input type="text" name="idno" value="${contact.idno}"   />
                         </div>
-                    </div>
+                  </div>
+               </li>
+                <li class="inner">
+                    <div class="item-name">手机:</div>
+                    <div class="item-value">
+                   	<div class="input-wrap">
+                         <input type="text" name="telphone" value="${contact.telphone}"   />
+                        </div>
+                  </div>
+                </li>
+                  <li class="inner">
+                    <div class="item-name">身高:</div>
+                    <div class="item-value">
+                   	<div class="input-wrap">
+                         <input type="text" name="telphone" value="${contact.height}"   />
+                        </div>
+                  </div>
+                </li>
+                  <li class="inner">
+                    <div class="item-name">体重:</div>
+                    <div class="item-value">
+                   	<div class="input-wrap">
+                         <input type="text" name="telphone" value="${contact.weight}"   />
+                        </div>
+                  </div>
                 </li>
                 
                 <li class="inner">
                     <div class="item-name">备注:</div>
                     <div class="item-value">
                         <div class="input-wrap">
-                         <input type="text" name="remarks" value="${user.remarks}"    />
-                          <input type="hidden" name="photo" value="${user.photo}"    />
+                         <input type="text" name="remarks" value="${contact.remarks}"    />
+                          <input type="hidden" name="headImg" value="${contact.headImg}"    />
                         </div>
                     </div>
                 </li>

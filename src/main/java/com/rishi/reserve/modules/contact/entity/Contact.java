@@ -4,6 +4,8 @@
 package com.rishi.reserve.modules.contact.entity;
 
 import com.rishi.reserve.modules.sys.entity.User;
+import com.rishi.reserve.modules.sys.utils.DictUtils;
+
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
@@ -26,6 +28,7 @@ public class Contact extends DataEntity<Contact> {
 	private String telphone;		// 手机号
 	private String height;		// 身高
 	private String weight;		// 体重
+	private String idno; //身份证号
 	
 	public Contact() {
 		super();
@@ -56,6 +59,10 @@ public class Contact extends DataEntity<Contact> {
 	@Length(min=0, max=2, message="性别长度必须介于 0 和 2 之间")
 	public String getGender() {
 		return gender;
+	}
+	
+	public String getGenderName() {
+		return DictUtils.getDictLabel(gender, "sex", "");
 	}
 
 	public void setGender(String gender) {
@@ -114,6 +121,14 @@ public class Contact extends DataEntity<Contact> {
 
 	public void setWeight(String weight) {
 		this.weight = weight;
+	}
+
+	public String getIdno() {
+		return idno;
+	}
+
+	public void setIdno(String idno) {
+		this.idno = idno;
 	}
 	
 }

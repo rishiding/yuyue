@@ -5,6 +5,7 @@
  <link rel="stylesheet" href="${ctxStatic}/mobile/css/jquery-weui.min.css"/>
  <link rel="stylesheet" href="${ctxStatic}/mobile/css/animate.css"/>
  <script src="${ctxStatic}/jquery/jquery-1.8.3.min.js"></script>
+ <script src="${ctxStatic}/layer/layer.js"></script>
 <script src="${ctxStatic}/mobile/js/jquery-weui.js"></script>
 <script>(function (doc, win) {
           var docEl = doc.documentElement,

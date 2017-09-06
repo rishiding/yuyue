@@ -13,7 +13,7 @@
 <script>
 	var message="${message}";
 	if(message){
-		alert(message);
+		layer.msg(message);
 	}
 	
 	$(document).ready(function() {

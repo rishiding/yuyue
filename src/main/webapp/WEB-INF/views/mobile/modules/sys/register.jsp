@@ -109,7 +109,7 @@
     		$(".msgs").click (function  () {
     			var phone=$("#mobile").val();
     			if(!phone){
-    				alert("请先输入手机号");
+    				layer.msg("请先输入手机号");
     				return;
     			}
     			var code=$(this);
@@ -136,7 +136,7 @@
     							},1000);
     						}
     					}else{
-    						alert("验证码发送失败");
+    						layer.msg("验证码发送失败");
     						
     					}
     				}
@@ -147,7 +147,7 @@
     		$("#code").change(function(){
     			var phone=$("#mobile").val();
     			if(!phone){
-    				alert("请先输入手机号");
+    				layer.msg("请先输入手机号");
     				return;
     			}
     			var $this = $(this);
@@ -155,7 +155,7 @@
     			if(val.length!=4){
     				$(this).css({"border-color":"red"});
     				codeflag = false;
-    				alert("验证码不正确")
+    				layer.msg("验证码不正确")
     				return;
     			}
     			$(this).css({"border-color":""});
@@ -169,7 +169,7 @@
     						$this.css({"border-color":""});
     					}else{
     						codeflag = false;
-    						alert("验证码不正确");
+    						layer.msg("验证码不正确");
     						$this.css({"border-color":"red"});
     					}
     				}
@@ -180,7 +180,7 @@
         	
     	   
     	    	if(!codeflag){
-    	    		alert("验证码不正确");
+    	    		layer.msg("验证码不正确");
     	    		return;
     	    	}
     	    	console.info($("#jvForm").serialize());
@@ -191,11 +191,11 @@
     				dataType:"json",
     				success:function(res){
     					if(res.code == '200'){
-    						alert(res.message);
+    						layer.msg(res.message);
     						history.go(-1);
     					}else{
     						
-    						alert(res.message);
+    						layer.msg(res.message);
     						
     					}
     				}
