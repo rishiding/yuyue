@@ -12,11 +12,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.rishi.reserve.common.config.Global;
 import com.rishi.reserve.common.config.ResponseCodeCanstants;
 import com.rishi.reserve.common.config.ResponseResult;
 import com.rishi.reserve.common.persistence.Page;
 import com.rishi.reserve.common.web.BaseController;
+import com.rishi.reserve.modules.reserve.entity.ReserveRecord;
+import com.rishi.reserve.modules.reserve.service.ReserveRecordService;
 import com.rishi.reserve.modules.sys.entity.User;
 import com.rishi.reserve.modules.sys.service.SystemService;
 import com.rishi.reserve.modules.sys.utils.UserUtils;
@@ -32,6 +36,11 @@ public class ReserveFrontController extends BaseController {
 	@Autowired
 	SystemService systemService;
 	
+	@Autowired
+	private ReserveRecordService reserveRecordService;
+	
+	
+	
 	
 	@RequestMapping(value = {"index", ""})
 	public String index(  HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -45,7 +54,7 @@ public class ReserveFrontController extends BaseController {
 	}
 	
 	@RequestMapping(value = {"doctorInfo", ""})
-	public String doctorInfo(@RequestParam("userid") String userid,  HttpServletRequest request, HttpServletResponse response, Model model) {
+	public String doctorInfo(@RequestParam("userid") String userid,   Model model) {
 		User doctor=systemService.getUser(userid);
 		model.addAttribute("doctor", doctor);
 		if(UserUtils.getPrincipal()!=null){
@@ -61,6 +70,17 @@ public class ReserveFrontController extends BaseController {
 		model.addAttribute("page", page);
 		return new ResponseResult(ResponseCodeCanstants.SUCCESS,page, "成功");
 	}
+	
 
+	
+	@RequestMapping(value = "save")
+	public String save(ReserveRecord reserveRecord, Model model, RedirectAttributes redirectAttributes) {
+		if (!beanValidator(model, reserveRecord)){
+			return doctorInfo(reserveRecord.getReserveUserId(), model);
+		}
+		reserveRecordService.save(reserveRecord);
+		addMessage(redirectAttributes, "保存预约记录成功");
+		return "redirect:"+Global.getFrontPath()+"/reserve/index?repage";
+	}
 	
 }

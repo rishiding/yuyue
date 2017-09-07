@@ -4,6 +4,8 @@
 package com.rishi.reserve.modules.reserve.entity;
 
 import com.rishi.reserve.modules.sys.entity.User;
+import com.rishi.reserve.modules.sys.utils.DictUtils;
+
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
@@ -24,6 +26,8 @@ public class ReserveRecord extends DataEntity<ReserveRecord> {
 	private String reserveTime;		// 预约时段
 	private String reserveType;		// 预约类型 : 1，普通2，专家
 	private String disease;		// 病情
+	private String status; //状态
+	
 	
 	public ReserveRecord() {
 		super();
@@ -81,6 +85,9 @@ public class ReserveRecord extends DataEntity<ReserveRecord> {
 	public String getReserveType() {
 		return reserveType;
 	}
+	public String getReserveTypeName() {
+		return DictUtils.getDictLabel(reserveType, "reserve_type", "");
+	}
 
 	public void setReserveType(String reserveType) {
 		this.reserveType = reserveType;
@@ -93,6 +100,17 @@ public class ReserveRecord extends DataEntity<ReserveRecord> {
 
 	public void setDisease(String disease) {
 		this.disease = disease;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+	public String getStatusName() {
+		return DictUtils.getDictLabel(status, "reserve_status", "");
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 }

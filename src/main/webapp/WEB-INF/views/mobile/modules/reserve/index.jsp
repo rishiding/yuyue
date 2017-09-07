@@ -19,7 +19,10 @@
 }
 </style>
     <script type="text/javascript">
-
+    var message="${message}";
+	if(message){
+		layer.msg(message);
+	}
 var page = 0;
 
 var totalPage = 1;

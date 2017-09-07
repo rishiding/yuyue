@@ -1,87 +1,95 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ include file="/WEB-INF/views/include/taglib.jsp"%>
-<html>
-<head>
-	<title>预约记录管理</title>
-	<meta name="decorator" content="default"/>
-	<script type="text/javascript">
-		$(document).ready(function() {
-			//$("#name").focus();
-			$("#inputForm").validate({
-				submitHandler: function(form){
-					loading('正在提交，请稍等...');
-					form.submit();
-				},
-				errorContainer: "#messageBox",
-				errorPlacement: function(error, element) {
-					$("#messageBox").text("输入有误，请先更正。");
-					if (element.is(":checkbox")||element.is(":radio")||element.parent().is(".input-append")){
-						error.appendTo(element.parent().parent());
-					} else {
-						error.insertAfter(element);
-					}
-				}
-			});
-		});
-	</script>
+<%@ include file="/WEB-INF/views/include/taglib.jsp"%><!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+        <title>预约记录详情-${fns:getConfig('productName')}</title>
+         <%@include file="/WEB-INF/views/include/m_head.jsp" %>
+  <link rel="stylesheet" href="${ctxStatic}/mobile/css/pages/register.css"/>
+  <link rel="stylesheet" href="${ctxStatic}/mobile/css/pages/order.css"/>
+ 
+<script>
+	var message="${message}";
+	if(message){
+		layer.msg(message);
+	}
+	
+
+</script>     
 </head>
+
 <body>
-	<ul class="nav nav-tabs">
-		<li><a href="${ctx}/reserve/reserveRecord/">预约记录列表</a></li>
-		<li class="active"><a href="${ctx}/reserve/reserveRecord/form?id=${reserveRecord.id}">预约记录<shiro:hasPermission name="reserve:reserveRecord:edit">${not empty reserveRecord.id?'修改':'添加'}</shiro:hasPermission><shiro:lacksPermission name="reserve:reserveRecord:edit">查看</shiro:lacksPermission></a></li>
-	</ul><br/>
-	<form:form id="inputForm" modelAttribute="reserveRecord" action="${ctx}/reserve/reserveRecord/save" method="post" class="form-horizontal">
-		<form:hidden path="id"/>
-		<sys:message content="${message}"/>		
-		<div class="control-group">
-			<label class="control-label">所属用户 : 所属用户：</label>
-			<div class="controls">
-				<sys:treeselect id="user" name="user.id" value="${reserveRecord.user.id}" labelName="user.name" labelValue="${reserveRecord.user.name}"
-					title="用户" url="/sys/office/treeData?type=3" cssClass="required" allowClear="true" notAllowSelectParent="true"/>
-				<span class="help-inline"><font color="red">*</font> </span>
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label">预约医生：</label>
-			<div class="controls">
-				<form:input path="reserveUserId" htmlEscape="false" maxlength="64" class="input-xlarge required"/>
-				<span class="help-inline"><font color="red">*</font> </span>
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label">预约日期：</label>
-			<div class="controls">
-				<form:input path="reserveDate" htmlEscape="false" maxlength="20" class="input-xlarge "/>
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label">预约时段：</label>
-			<div class="controls">
-				<form:input path="reserveTime" htmlEscape="false" maxlength="20" class="input-xlarge "/>
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label">预约类型 : 1，普通2，专家：</label>
-			<div class="controls">
-				<form:input path="reserveType" htmlEscape="false" maxlength="2" class="input-xlarge "/>
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label">病情：</label>
-			<div class="controls">
-				<form:input path="disease" htmlEscape="false" maxlength="500" class="input-xlarge "/>
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label">备注：</label>
-			<div class="controls">
-				<form:textarea path="remarks" htmlEscape="false" rows="4" maxlength="255" class="input-xxlarge "/>
-			</div>
-		</div>
-		<div class="form-actions">
-			<shiro:hasPermission name="reserve:reserveRecord:edit"><input id="btnSubmit" class="btn btn-primary" type="submit" value="保 存"/>&nbsp;</shiro:hasPermission>
-			<input id="btnCancel" class="btn" type="button" value="返 回" onclick="history.go(-1)"/>
-		</div>
-	</form:form>
-</body>
+ <header>
+       <div class="titlebar reverse">
+                <a href="javascript:back()">
+                    <i class="iconfont">&#xe640;</i>
+                </a>
+                <h1>预约记录详情</h1>
+            </div>
+        </header>
+         <article>
+        
+         <form id="jvForm" action="${ctx}/reserve/reserveRecord/cancel" method="post" > 
+         <input type="hidden" name="id" value="${reserveRecord.id}">
+        <ul class="xunjia-box">
+        	<li class="inner">
+                 <div class="item-name">预约医生:</div>
+                  <div class="item-value">${reserveRecord.reserveUser.name}</div>
+               </li>        
+              
+                 <li class="inner">
+                  <div class="item-name">预约类别:</div>
+                  <div class="item-value"> 
+                  ${reserveRecord.reserveType}                  	
+                       
+                  </div>
+                </li>
+                 <li class="inner">
+                  <div class="item-name">预约日期:</div>
+                  <div class="item-value">  
+                   ${reserveRecord.reserveDate}                 	
+                       
+                  </div>
+                </li>
+                 <li class="inner">
+                  <div class="item-name">预约时段:</div>
+                  <div class="item-value"> 
+                  ${reserveRecord.reserveTime}                   	
+                        	
+                  </div>
+                </li>
+      
+                 <li class="inner">
+                    <div class="item-name">病情:</div>
+                    <div class="item-value">
+                    	 ${reserveRecord.disease}                         
+                    </div>
+                </li>
+                 <li class="inner">
+                    <div class="item-name">预约状态:</div>
+                    <div class="item-value">
+                    	 ${reserveRecord.statusName}                         
+                    </div>
+                </li>
+                 
+        </ul>
+        <c:if test="${reserveRecord.status eq '1'}">
+        <div class="weui_cells weui_cells_access animated fadeInRight">            
+			  <a class="weui_cell" href="javascript:;">
+                <div class="weui_cell_bd weui_cell_primary">
+                    <div class="weui-row weui-no-gutter">
+                 		<input type="submit" value="取消预约" class="weui_btn weui_btn_primary"/>
+                    </div>
+                </div>
+              </a>
+                
+            </div>
+      </c:if>
+      </form>
+        </article>
+            
+            </form>    
+          <%@include file="/WEB-INF/views/include/m_foot.jsp" %>
+    </body>
 </html>

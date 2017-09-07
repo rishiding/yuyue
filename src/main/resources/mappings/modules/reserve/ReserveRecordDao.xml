@@ -10,6 +10,7 @@
 		a.reserve_time AS "reserveTime",
 		a.reserve_type AS "reserveType",
 		a.disease AS "disease",
+		a.status AS "status",
 		a.create_by AS "createBy.id",
 		a.create_date AS "createDate",
 		a.update_by AS "updateBy.id",
@@ -18,7 +19,7 @@
 		a.del_flag AS "delFlag",
 		u2.name AS "user.name",
 		u3.id AS "reserveUser.id",
-		u3.name AS "reserveUser.name",
+		u3.name AS "reserveUser.name"
 	</sql>
 	
 	<sql id="reserveRecordJoins">
@@ -41,6 +42,9 @@
 		<include refid="reserveRecordJoins"/>
 		<where>
 			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="user != null and user.id != null and user.id !=''">
+				and user_id = #{user.id}
+			</if>
 		</where>
 		<choose>
 			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
@@ -84,6 +88,7 @@
 			update_by,
 			update_date,
 			remarks,
+			status,
 			del_flag
 		) VALUES (
 			#{id},
@@ -98,6 +103,7 @@
 			#{updateBy.id},
 			#{updateDate},
 			#{remarks},
+			#{status},
 			#{delFlag}
 		)
 	</insert>
@@ -112,6 +118,7 @@
 			disease = #{disease},
 			update_by = #{updateBy.id},
 			update_date = #{updateDate},
+			status = #{status},
 			remarks = #{remarks}
 		WHERE id = #{id}
 	</update>

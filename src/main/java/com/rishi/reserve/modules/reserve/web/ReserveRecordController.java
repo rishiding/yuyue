@@ -13,14 +13,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rishi.reserve.common.config.Global;
+import com.rishi.reserve.common.config.ResponseCodeCanstants;
+import com.rishi.reserve.common.config.ResponseResult;
 import com.rishi.reserve.common.persistence.Page;
 import com.rishi.reserve.common.web.BaseController;
 import com.rishi.reserve.common.utils.StringUtils;
 import com.rishi.reserve.modules.reserve.entity.ReserveRecord;
 import com.rishi.reserve.modules.reserve.service.ReserveRecordService;
+import com.rishi.reserve.modules.sys.utils.UserUtils;
 
 /**
  * 预约记录Controller
@@ -44,6 +48,14 @@ public class ReserveRecordController extends BaseController {
 			entity = new ReserveRecord();
 		}
 		return entity;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = {"reserveRecords", ""})
+	public Object reserveList(ReserveRecord reserveRecord, HttpServletRequest request, HttpServletResponse response, Model model) {
+		reserveRecord.setUser(UserUtils.getUser());
+		Page<ReserveRecord> page=reserveRecordService.findPage(new Page<ReserveRecord> (request, response), reserveRecord);
+		return new ResponseResult(ResponseCodeCanstants.SUCCESS,page, "成功");
 	}
 	
 	@RequiresPermissions("reserve:reserveRecord:view")
@@ -78,6 +90,20 @@ public class ReserveRecordController extends BaseController {
 		reserveRecordService.delete(reserveRecord);
 		addMessage(redirectAttributes, "删除预约记录成功");
 		return "redirect:"+Global.getAdminPath()+"/reserve/reserveRecord/?repage";
+	}
+	
+	@RequiresPermissions("reserve:reserveRecord:edit")
+	@RequestMapping(value = "cancel")
+	public String cancel(ReserveRecord reserveRecord, RedirectAttributes redirectAttributes) {
+		reserveRecord=reserveRecordService.get(reserveRecord);
+		if(reserveRecord==null||reserveRecord.getStatus().equals("2")){
+			addMessage(redirectAttributes, "已经取消");
+		}else{
+			reserveRecord.setStatus("2");
+			reserveRecordService.update(reserveRecord);
+			addMessage(redirectAttributes, "取消成功");
+		}
+		return "redirect:"+Global.getAdminPath()+"/reserve/reserveRecord/list?repage";
 	}
 
 }
