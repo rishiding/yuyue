@@ -13,9 +13,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rishi.reserve.common.config.Global;
+import com.rishi.reserve.common.config.ResponseCodeCanstants;
+import com.rishi.reserve.common.config.ResponseResult;
 import com.rishi.reserve.common.persistence.Page;
 import com.rishi.reserve.common.web.BaseController;
 import com.rishi.reserve.common.utils.StringUtils;
@@ -46,6 +49,17 @@ public class ContactController extends BaseController {
 		}
 		return entity;
 	}
+	@ResponseBody
+	@RequestMapping(value = {"myContact"})
+	public Object myContact(Contact contact, HttpServletRequest request, HttpServletResponse response) {
+		if(contact==null){
+			contact=new Contact();
+		}
+		contact.setUser(UserUtils.getUser());
+		Page<Contact> page = contactService.findPage(new Page<Contact>(request, response), contact); 
+		return new ResponseResult(ResponseCodeCanstants.SUCCESS, page,"成功");
+	}
+
 	
 	@RequiresPermissions("contact:contact:view")
 	@RequestMapping(value = {"list", ""})

@@ -7,12 +7,38 @@
         <title>常用联系人-${fns:getConfig('productName')}</title>
          <%@include file="/WEB-INF/views/include/m_head.jsp" %>
   <link rel="stylesheet" href="${ctxStatic}/mobile/css/pages/register.css"/>
-
+  <link rel="stylesheet" href="${ctxStatic}/mobile/css/mobiscroll.custom-2.6.2.min.css"/>
+<script src="${ctxStatic}/mobile/js/mobiscroll.custom-2.6.2.min.js"></script>
 <script>
 	var message="${message}";
 	if(message){
 		layer.msg(message);
 	}
+	$(function() {        	
+	  
+
+	     var opt = {  
+	            theme: "android-ics light", 
+	            display: 'modal', //显示方式  
+	            lang: "zh",  
+	            setText: '确定', //确认按钮名称
+	            cancelText: "取消",  
+	            dateFormat: 'yyyy-mm-dd', //返回结果格式化为年月格式  
+	            dateOrder: 'yyyymmdd', //面板中日期排列格式
+	            onBeforeShow: function (inst) {
+	    		
+	              }, 
+	            headerText: function (valueText) { //自定义弹出框头部格式  
+	                array = valueText.split('-');  
+	                return array[0] + "年" + array[1] + "月" + array[2] + "日";  
+	            }  
+	        };
+
+	      $("#birthday").mobiscroll().date(opt); 
+	 });
+
+
+	
 </script>     
 </head>
 
@@ -34,7 +60,7 @@
                  <div class="item-name">昵称:</div>
                  <div class="item-value">
                    	<div class="input-wrap">
-                   <input type="text" name="nickName" value="${contact.nickName}"/>
+                   <input type="text" name="nickName" value="${contact.nickName}" placeholder="昵称（必填）"/>
                   </div>
                   </div>
                </li>               
@@ -55,7 +81,7 @@
                   <div class="item-name">出生日期:</div>
                   <div class="item-value">
                    	<div class="input-wrap">
-                         <input type="text" name="birthday" value="${contact.birthday}"   />
+                         <input type="text" id="birthday" name="birthday" value="${contact.birthday}"   placeholder="请选择（必填）"  />
                         </div>
                   </div>
                </li>
@@ -63,7 +89,7 @@
                   <div class="item-name">真实姓名:</div>
                   <div class="item-value">
                    	<div class="input-wrap">
-                         <input type="text" name="name" value="${contact.name}"   />
+                         <input type="text" name="name" value="${contact.name}"  placeholder="真实姓名（必填）"  />
                         </div>
                   </div>
                </li>
@@ -71,7 +97,7 @@
                   <div class="item-name">身份证号:</div>
                   <div class="item-value">
                    	<div class="input-wrap">
-                         <input type="text" name="idno" value="${contact.idno}"   />
+                         <input type="text" name="idno" value="${contact.idno}"  placeholder="身份证号" />
                         </div>
                   </div>
                </li>
@@ -79,7 +105,7 @@
                     <div class="item-name">手机:</div>
                     <div class="item-value">
                    	<div class="input-wrap">
-                         <input type="text" name="telphone" value="${contact.telphone}"   />
+                         <input type="text" name="telphone" value="${contact.telphone}"  placeholder="手机号" />
                         </div>
                   </div>
                 </li>
@@ -87,7 +113,7 @@
                     <div class="item-name">身高:</div>
                     <div class="item-value">
                    	<div class="input-wrap">
-                         <input type="text" name="telphone" value="${contact.height}"   />
+                         <input type="text" name="height" value="${contact.height}"  placeholder="cm" />
                         </div>
                   </div>
                 </li>
@@ -95,7 +121,7 @@
                     <div class="item-name">体重:</div>
                     <div class="item-value">
                    	<div class="input-wrap">
-                         <input type="text" name="telphone" value="${contact.weight}"   />
+                         <input type="text" name="weight" value="${contact.weight}"  placeholder="kg" />
                         </div>
                   </div>
                 </li>

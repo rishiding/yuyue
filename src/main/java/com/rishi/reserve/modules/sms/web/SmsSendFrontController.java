@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.common.collect.Lists;
-import com.rishi.reserve.common.config.Global;
 import com.rishi.reserve.common.config.ResponseCodeCanstants;
 import com.rishi.reserve.common.config.ResponseResult;
 import com.rishi.reserve.common.persistence.Page;

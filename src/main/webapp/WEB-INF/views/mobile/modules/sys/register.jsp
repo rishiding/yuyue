@@ -47,7 +47,7 @@
                     <div class="item-name">证件号码：</div>
                     <div class="item-value">
                         <div class="input-wrap">
-                            <input type="text" name="cardNo">
+                            <input type="text" name="cardNo" placeholder="证件号">
                         </div>
                     </div>
                 </li>
@@ -55,7 +55,7 @@
                     <div class="item-name">姓名：</div>
                     <div class="item-value">
                         <div class="input-wrap">
-                            <input type="text" name="name">
+                            <input type="text" name="name" placeholder="必填">
                         </div>
                     </div>
                 </li>
@@ -63,7 +63,7 @@
                     <div class="item-name">登录账名：</div>
                     <div class="item-value">
                         <div class="input-wrap">
-                            <input type="text" name="loginName">
+                            <input type="text" name="loginName" placeholder="必填">
                         </div>
                     </div>
                 </li>
@@ -71,7 +71,7 @@
                     <div class="item-name">密码：</div>
                     <div class="item-value">
                         <div class="input-wrap">
-                            <input type="password" name ="password">
+                            <input type="password" name ="password" placeholder="密码">
                         </div>
                     </div>
                 </li>
@@ -79,7 +79,7 @@
                     <div class="item-name">手机号码：</div>
                     <div class="item-value">
                         <div class="input-wrap">
-                            <input type="text" id="mobile" name="mobile">
+                            <input type="text" id="mobile" name="mobile" placeholder="手机号">
                         </div>
                     </div>
                 </li>
