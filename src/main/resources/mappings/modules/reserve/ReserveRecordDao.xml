@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rishi.reserve.modules.reserve.dao.ReserveRecordDao">
+    
+	<sql id="reserveRecordColumns">
+		a.id AS "id",
+		a.user_id AS "user.id",
+		a.reserve_user_id AS "reserveUserId",
+		a.reserve_date AS "reserveDate",
+		a.reserve_time AS "reserveTime",
+		a.reserve_type AS "reserveType",
+		a.disease AS "disease",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		u2.name AS "user.name",
+		u3.id AS "reserveUser.id",
+		u3.name AS "reserveUser.name",
+	</sql>
+	
+	<sql id="reserveRecordJoins">
+		LEFT JOIN sys_user u2 ON u2.id = a.user_id 
+		LEFT JOIN sys_user u3 ON u3.id = a.reserve_user_id
+	</sql>
+    
+	<select id="get" resultType="ReserveRecord">
+		SELECT 
+			<include refid="reserveRecordColumns"/>
+		FROM t_reserve_record a
+		<include refid="reserveRecordJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="ReserveRecord">
+		SELECT 
+			<include refid="reserveRecordColumns"/>
+		FROM t_reserve_record a
+		<include refid="reserveRecordJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ReserveRecord">
+		SELECT 
+			<include refid="reserveRecordColumns"/>
+		FROM t_reserve_record a
+		<include refid="reserveRecordJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO t_reserve_record(
+			id,
+			user_id,
+			reserve_user_id,
+			reserve_date,
+			reserve_time,
+			reserve_type,
+			disease,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{user.id},
+			#{reserveUserId},
+			#{reserveDate},
+			#{reserveTime},
+			#{reserveType},
+			#{disease},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE t_reserve_record SET 	
+			user_id = #{user.id},
+			reserve_user_id = #{reserveUserId},
+			reserve_date = #{reserveDate},
+			reserve_time = #{reserveTime},
+			reserve_type = #{reserveType},
+			disease = #{disease},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE t_reserve_record SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

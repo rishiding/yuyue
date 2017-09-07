@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rishi.reserve.modules.reserve.dao.DisLogDao">
+    
+	<sql id="disLogColumns">
+		a.id AS "id",
+		a.patient_name AS "patientName",
+		a.date AS "date",
+		a.type AS "type",
+		a.hospital AS "hospital",
+		a.dept AS "dept",
+		a.doctor AS "doctor",
+		a.reason AS "reason",
+		a.result AS "result",
+		a.suggestion AS "suggestion",
+		a.chufang AS "chufang",
+		a.jianchabaogao AS "jianchabaogao",
+		a.bingli AS "bingli",
+		a.user_id AS "user.id",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		u14.name AS "user.name"
+	</sql>
+	
+	<sql id="disLogJoins">
+		LEFT JOIN sys_user u14 ON u14.id = a.user_id
+	</sql>
+    
+	<select id="get" resultType="DisLog">
+		SELECT 
+			<include refid="disLogColumns"/>
+		FROM t_dis_log a
+		<include refid="disLogJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="DisLog">
+		SELECT 
+			<include refid="disLogColumns"/>
+		FROM t_dis_log a
+		<include refid="disLogJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="DisLog">
+		SELECT 
+			<include refid="disLogColumns"/>
+		FROM t_dis_log a
+		<include refid="disLogJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO t_dis_log(
+			id,
+			patient_name,
+			date,
+			type,
+			hospital,
+			dept,
+			doctor,
+			reason,
+			result,
+			suggestion,
+			chufang,
+			jianchabaogao,
+			bingli,
+			user_id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{patientName},
+			#{date},
+			#{type},
+			#{hospital},
+			#{dept},
+			#{doctor},
+			#{reason},
+			#{result},
+			#{suggestion},
+			#{chufang},
+			#{jianchabaogao},
+			#{bingli},
+			#{user.id},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE t_dis_log SET 	
+			patient_name = #{patientName},
+			date = #{date},
+			type = #{type},
+			hospital = #{hospital},
+			dept = #{dept},
+			doctor = #{doctor},
+			reason = #{reason},
+			result = #{result},
+			suggestion = #{suggestion},
+			chufang = #{chufang},
+			jianchabaogao = #{jianchabaogao},
+			bingli = #{bingli},
+			user_id = #{user.id},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE t_dis_log SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

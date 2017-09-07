@@ -107,7 +107,7 @@ public class User extends DataEntity<User> {
 		return id;
 	}
 
-	@JsonIgnore
+	
 	@NotNull(message="归属公司不能为空")
 	@ExcelField(title="归属公司", align=2, sort=20)
 	public Office getCompany() {

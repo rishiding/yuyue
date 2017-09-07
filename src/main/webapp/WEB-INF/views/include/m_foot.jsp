@@ -2,17 +2,17 @@
 <footer>
             <ul class="menubar animated fadeInUp delay3">
             	
-                <li class="tab " onclick="javascript:reserve()">
+                <li class="tab <c:if test="${sessionScope._tab eq 'reserve'}">active</c:if>" onclick="javascript:reserve()">
                     <i class="iconfont">&#xe63f;</i>
                     <label class="tab-label">预约</label>
-                    <span class="point"></span>
+                   
                 </li>
-                <li class="tab" onclick="javascript:help()">
+                <li class="tab <c:if test="${sessionScope._tab eq 'help'}">active</c:if>" onclick="javascript:help()">
                     <i class="iconfont" >&#xe63d;</i>
                     <label class="tab-label">帮助</label>
-                    <span class="point"></span>
+                   
                 </li>
-                 <li class="tab active" onclick="javascript:home()">
+                 <li class="tab <c:if test="${sessionScope._tab eq 'index'}">active</c:if>" onclick="javascript:home()">
                     <i class="iconfont" >&#xe63e;</i>
                     <label class="tab-label">我</label>
                 </li>
@@ -27,10 +27,10 @@
     	window.open("${ctx}/",'_self') 
     }
     function help(){
-    	window.open("${base}/member/help",'_self') 
+    	window.open("${front}/reserve/help",'_self') 
     }
     function reserve(){
-    	window.open("${base}/reserve/list",'_self') 
+    	window.open("${front}/reserve/index",'_self') 
     }
    
     

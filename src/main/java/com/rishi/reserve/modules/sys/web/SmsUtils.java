@@ -20,7 +20,8 @@ public class SmsUtils {
 	private static String signName="彩虹医学网";
 	
 	private static String VALICODE_TEMPLATE="SMS_58145317";
-	
+	private static String CONSULT_APPLY_TEMPLATE="SMS_58110257";   //预约申请通知模板
+	private static String APPLY_OK_TEMPLATE="SMS_60140023";   //会诊诊断完成通知模板
 /**
  * 发送注册验证码
  * @param telphones
@@ -31,6 +32,29 @@ public class SmsUtils {
 		String param="{\"code\":'"+code+"'}";
 		return sendMsg(telphone,VALICODE_TEMPLATE,param);		
 	}	
+	
+	/**
+	 * 预约申请通知
+	 * @param telphone
+	 * @param doctorName
+	 * @param patientName
+	 * @return
+	 */
+	public static boolean sendConsultApply(String telphone,String doctorName,String patientName){
+		String param="{\"name\":'"+doctorName+"',\"patient\":'"+patientName+"'}";
+		return sendMsg(telphone,CONSULT_APPLY_TEMPLATE,param);		
+	}
+	
+	/**
+	 * 会诊诊断完成通知
+	 * @param telphone
+	 * @param patientName
+	 * @return
+	 */
+	public static boolean sendApplyConsultOK(String telphone,String patientName){
+		String param="{\"name\":'"+patientName+"'}";
+		return sendMsg(telphone,APPLY_OK_TEMPLATE,param);		
+	}
 	
 	private static boolean sendMsg(String telphone,String msg_template,String param) {
 		TaobaoClient client = new DefaultTaobaoClient(url, appkey, secret);
@@ -59,6 +83,7 @@ public class SmsUtils {
 	
 	public static void main(String[] args) {
 					SmsUtils.sendValiCode("18111266553","1233");
+//					SmsUtils.sendApplyConsultOK("18111266553","王五");
 
 		
 	}

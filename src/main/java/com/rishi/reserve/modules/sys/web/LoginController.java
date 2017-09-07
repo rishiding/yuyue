@@ -192,6 +192,7 @@ public class LoginController extends BaseController{
 		}
 		User user=UserUtils.getUser();
 		model.addAttribute("user", user);
+		request.getSession().setAttribute("_tab", "index");
 		// 如果已登录，再次访问主页，则退出原账号。
 		if (Global.TRUE.equals(Global.getConfig("notAllowRefreshIndex"))){
 			String logined = CookieUtils.getCookie(request, LOGINED);

@@ -74,7 +74,7 @@ transition: linear 0.25s;
             </div>
            
              <div class="weui_cells weui_cells_access">
-                <a class="weui_cell" href="${ctx}/reserve/bingli">
+                <a class="weui_cell" href="${ctx}/reserve/disLog/list">
                     <div class="weui_cell_bd weui_cell_primary">
                         <p>我的病历</p>
                     </div>
