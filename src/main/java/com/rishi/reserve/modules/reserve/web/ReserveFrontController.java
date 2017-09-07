@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rishi.reserve.common.config.ResponseCodeCanstants;
@@ -18,6 +19,7 @@ import com.rishi.reserve.common.persistence.Page;
 import com.rishi.reserve.common.web.BaseController;
 import com.rishi.reserve.modules.sys.entity.User;
 import com.rishi.reserve.modules.sys.service.SystemService;
+import com.rishi.reserve.modules.sys.utils.UserUtils;
 
 /**
  * 预约Controller
@@ -40,6 +42,16 @@ public class ReserveFrontController extends BaseController {
 	public String help(  HttpServletRequest request, HttpServletResponse response, Model model) {
 		request.getSession().setAttribute("_tab", "help");
 		return "modules/reserve/help";
+	}
+	
+	@RequestMapping(value = {"doctorInfo", ""})
+	public String doctorInfo(@RequestParam("userid") String userid,  HttpServletRequest request, HttpServletResponse response, Model model) {
+		User doctor=systemService.getUser(userid);
+		model.addAttribute("doctor", doctor);
+		if(UserUtils.getPrincipal()!=null){
+			model.addAttribute("user", UserUtils.getUser());
+		}
+		return "modules/reserve/doctorInfo";
 	}
 	@ResponseBody
 	@RequestMapping(value = {"doctor", ""})

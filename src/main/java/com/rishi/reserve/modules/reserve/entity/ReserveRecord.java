@@ -58,7 +58,7 @@ public class ReserveRecord extends DataEntity<ReserveRecord> {
 	public void setReserveUser(User reserveUser) {
 		this.reserveUser = reserveUser;
 	}
-
+	@NotNull(message="预约日期不能为空")
 	@Length(min=0, max=20, message="预约日期长度必须介于 0 和 20 之间")
 	public String getReserveDate() {
 		return reserveDate;
@@ -77,7 +77,7 @@ public class ReserveRecord extends DataEntity<ReserveRecord> {
 		this.reserveTime = reserveTime;
 	}
 	
-	@Length(min=0, max=2, message="预约类型 : 1，普通2，专家长度必须介于 0 和 2 之间")
+	@Length(min=0, max=2, message="预约类型必须介于 0 和 2 之间")
 	public String getReserveType() {
 		return reserveType;
 	}
