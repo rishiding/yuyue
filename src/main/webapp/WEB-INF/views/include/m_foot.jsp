@@ -1,4 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
+<br>
+<br>
+<br>
 <footer>
             <ul class="menubar animated fadeInUp delay3">
             	
