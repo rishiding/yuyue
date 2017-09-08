@@ -18,7 +18,7 @@
  </header>
         <article  style="bottom: 0;">
             <div class="weui_cells weui_cells_access">
-                <a class="weui_cell" href="${ctx}/sys/user/info">
+                <a class="weui_cell" href="${ctx}/oa/oaNotify/list">
                     <div class="weui_cell_bd weui_cell_primary">
                         <p>公告</p>
                     </div>
