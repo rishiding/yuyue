@@ -41,18 +41,50 @@ public class ReserveFrontController extends BaseController {
 	
 	
 	
-	
+	/**
+	 * 预约首页
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = {"index", ""})
 	public String index(  HttpServletRequest request, HttpServletResponse response, Model model) {
 		request.getSession().setAttribute("_tab", "reserve");
 		return "modules/reserve/index";
 	}
+	/**
+	 * 帮助首页
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = {"help", ""})
 	public String help(  HttpServletRequest request, HttpServletResponse response, Model model) {
 		request.getSession().setAttribute("_tab", "help");
 		return "modules/reserve/help";
 	}
 	
+	/**
+	 * 预约流程
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = {"reserve_dia", ""})
+	public String reserveDia(  HttpServletRequest request, HttpServletResponse response, Model model) {
+		request.getSession().setAttribute("_tab", "help");
+		return "modules/help/reserve_dia";
+	}
+	/**
+	 * 预约页
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = {"doctorInfo", ""})
 	public String doctorInfo(@RequestParam("userid") String userid,   Model model) {
 		User doctor=systemService.getUser(userid);
@@ -62,17 +94,31 @@ public class ReserveFrontController extends BaseController {
 		}
 		return "modules/reserve/doctorInfo";
 	}
+	
+	/**
+	 * 预约医生列表
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value = {"doctor", ""})
 	public Object doctor(User user, HttpServletRequest request, HttpServletResponse response, Model model) {
 		
 		Page<User> page= systemService.findUser(new Page<User> (request, response), user);
-		model.addAttribute("page", page);
+	
 		return new ResponseResult(ResponseCodeCanstants.SUCCESS,page, "成功");
 	}
 	
 
-	
+	/**
+	 * 预约保存
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "save")
 	public String save(ReserveRecord reserveRecord, Model model, RedirectAttributes redirectAttributes) {
 		if (!beanValidator(model, reserveRecord)){

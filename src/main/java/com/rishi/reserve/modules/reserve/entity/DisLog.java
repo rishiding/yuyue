@@ -5,7 +5,7 @@ package com.rishi.reserve.modules.reserve.entity;
 
 import org.hibernate.validator.constraints.Length;
 import com.rishi.reserve.modules.sys.entity.User;
-
+import com.rishi.reserve.modules.sys.utils.DictUtils;
 import com.rishi.reserve.common.persistence.DataEntity;
 
 /**
@@ -59,6 +59,9 @@ public class DisLog extends DataEntity<DisLog> {
 	@Length(min=0, max=1, message="就诊类型 : 1 门诊2 急诊长度必须介于 0 和 1 之间")
 	public String getType() {
 		return type;
+	}
+	public String getTypeName() {
+		return DictUtils.getDictLabel(type, "dis_type", "");
 	}
 
 	public void setType(String type) {

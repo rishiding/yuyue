@@ -41,7 +41,7 @@
                  <li class="inner">
                   <div class="item-name">预约类别:</div>
                   <div class="item-value"> 
-                  ${reserveRecord.reserveType}                  	
+                  ${reserveRecord.reserveTypeName}                  	
                        
                   </div>
                 </li>

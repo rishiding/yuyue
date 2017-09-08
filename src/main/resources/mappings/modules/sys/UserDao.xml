@@ -23,6 +23,7 @@
 		a.remarks,
 		a.gender,
 		a.title,
+		a.doctor_type as "doctorType",
 		a.login_flag,
 		a.photo,
 		a.create_by AS "createBy.id",
@@ -133,6 +134,10 @@
 		<if test="mobile != null and mobile != ''">
 			AND a.mobile = #{mobile}
 		</if>
+		<if test="doctorType != null and doctorType != ''">
+			and doctor_type=#{doctorType}
+		</if>
+		
 		<if test="name != null and name != ''">
 			AND a.name like 
 					<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
@@ -204,6 +209,7 @@
     		card_type,
     		gender,
 			title,
+			doctor_type,
 			del_flag
 		) VALUES (
 			#{id}, 
@@ -228,6 +234,7 @@
     		#{cardType},
     		#{gender},
 			#{title},
+			#{doctorType},
 			#{delFlag}
 		)
 	</insert>
@@ -253,6 +260,7 @@
     		card_type=#{cardType},
     		gender=#{gender},
 			title=#{title},
+			doctor_type=#{doctorType},
 			photo = #{photo}
 		WHERE id = #{id}
 	</update>
@@ -284,6 +292,9 @@
 			remarks = #{remarks},
 			card_no =#{cardNo},
     		card_type=#{cardType},
+    		gender=#{gender},
+			title=#{title},
+			doctor_type=#{doctorType},
 			photo = #{photo}
 		WHERE id = #{id}
 	</update>

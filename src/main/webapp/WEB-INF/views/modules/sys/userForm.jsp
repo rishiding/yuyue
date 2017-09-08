@@ -13,6 +13,9 @@
 					$("#doctor").hide();
 				}
 			});
+			if($("#userType").val()==2){
+				$("#doctor").show();
+			}
 			$("#inputForm").validate({
 				rules: {
 					loginName: {remote: "${ctx}/sys/user/checkLoginName?oldLoginName=" + encodeURIComponent('${user.loginName}')}
@@ -100,6 +103,16 @@
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
+		<div class="control-group">
+			<label class="control-label">医生类型:</label>
+			<div class="controls">
+				<form:select path="doctorType" id="doctorType" class="input-xlarge required">
+					<form:option value="" label=""/>
+					<form:options items="${fns:getDictList('reserve_type')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">性别:</label>
@@ -114,7 +127,7 @@
 		<div class="control-group">
 			<label class="control-label">证件类型:</label>
 			<div class="controls">
-				<form:select path="cardType" class="input-xlarge required">
+				<form:select path="cardType" class="input-xlarge">
 					<form:option value="" label=""/>
 					<form:options items="${fns:getDictList('card_type')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>

@@ -34,7 +34,15 @@ $(window).scroll(function () {
         load();
     }
 });
+function reload(){
+	console.info($("#search_input").val());
+	totalPage=1;
+	page=0;
+	$("#hotlist").empty();
+	load();
+}
 function load() {
+	
     if (page >= totalPage) {
         return;
     }
@@ -46,7 +54,8 @@ function load() {
         data: {  
         	userType:2,
         	pageNo: page,
-        	pageSize: 5
+        	pageSize: 5,
+        	name:$("#search_input").val()
         },
         success: function (res) {
         	
@@ -106,6 +115,21 @@ function load() {
     </div>
  </header>
  <article style="bottom: 0;">
+  	<div class="weui_search_bar" id="search_bar">
+              <form class="weui_search_outer">
+                <div class="weui_search_inner">
+                  <a class="weui_icon_search" href="javascript:reload();"></a>
+                  <input type="search" class="weui_search_input" id="search_input" placeholder="医生姓名模糊搜索" name="name">
+                  <a href="javascript:" class="weui_icon_clear" id="search_clear"></a>
+                </div>
+                <label for="search_input" class="weui_search_text" id="search_text">
+                  <span>按医生姓名模糊搜索</span>
+                  <i class="weui_icon_search"></i>
+                </label>
+              
+              </form>
+              <a href="javascript:" class="weui_search_cancel" id="search_cancel">取消</a>
+            </div>
     <div class="weui_cells weui_cells_access" id="hotlist">  
    
                 <div id="nouser" style="display:none">暂无医生</div>

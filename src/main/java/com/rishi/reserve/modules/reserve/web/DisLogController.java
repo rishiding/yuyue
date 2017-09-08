@@ -13,14 +13,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rishi.reserve.common.config.Global;
+import com.rishi.reserve.common.config.ResponseCodeCanstants;
+import com.rishi.reserve.common.config.ResponseResult;
 import com.rishi.reserve.common.persistence.Page;
 import com.rishi.reserve.common.web.BaseController;
 import com.rishi.reserve.common.utils.StringUtils;
 import com.rishi.reserve.modules.reserve.entity.DisLog;
 import com.rishi.reserve.modules.reserve.service.DisLogService;
+import com.rishi.reserve.modules.sys.utils.UserUtils;
 
 /**
  * 就诊病历Controller
@@ -44,6 +48,14 @@ public class DisLogController extends BaseController {
 			entity = new DisLog();
 		}
 		return entity;
+	}
+	@ResponseBody
+	@RequestMapping(value = {"records", ""})
+	public Object records(DisLog disLog, HttpServletRequest request, HttpServletResponse response, Model model) {
+		disLog.setUser(UserUtils.getUser());
+		Page<DisLog> page = disLogService.findPage(new Page<DisLog>(request, response), disLog); 
+		
+		return new ResponseResult(ResponseCodeCanstants.SUCCESS,page, "成功");
 	}
 	
 	@RequiresPermissions("reserve:disLog:view")
@@ -69,7 +81,7 @@ public class DisLogController extends BaseController {
 		}
 		disLogService.save(disLog);
 		addMessage(redirectAttributes, "保存就诊病历成功");
-		return "redirect:"+Global.getAdminPath()+"/reserve/disLog/?repage";
+		return "redirect:"+Global.getAdminPath()+"/reserve/disLog/list?repage";
 	}
 	
 	@RequiresPermissions("reserve:disLog:edit")

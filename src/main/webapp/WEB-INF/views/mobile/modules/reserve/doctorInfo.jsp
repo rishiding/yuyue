@@ -74,14 +74,10 @@
                 </li>
                  <li class="inner">
                   <div class="item-name">预约类别:</div>
-                  <div class="item-value">                   	
-                        <div class="input-wrap">
-                        <select id="reserveType" name="reserveType">
-                        		<c:forEach items="${fns:getDictList('reserve_type')}" var="obj">
-								<option value="${obj.value}" >${obj.label}</option>
-								</c:forEach>
-                        </select>
-                        </div> 
+                  <div class="item-value">   
+                  ${doctor.doctorTypeName}   
+                  <input type="hidden" value="${doctor.doctorType}"/>             	
+                       
                   </div>
                 </li>
                  <li class="inner">

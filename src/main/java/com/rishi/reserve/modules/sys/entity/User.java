@@ -51,7 +51,7 @@ public class User extends DataEntity<User> {
 	private String photo;	// 头像
 	private String oldLoginName;// 原登录名
 	private String newPassword;	// 新密码
-	
+	private String doctorType; //医生类别
 	private String oldLoginIp;	// 上次登陆IP
 	private Date oldLoginDate;	// 上次登陆日期
 	
@@ -293,6 +293,18 @@ public class User extends DataEntity<User> {
 
 	public void setNewPassword(String newPassword) {
 		this.newPassword = newPassword;
+	}
+
+	public String getDoctorType() {
+		return doctorType;
+	}
+	
+	public String getDoctorTypeName() {
+		return DictUtils.getDictLabel(doctorType, "reserve_type", "");
+	}
+
+	public void setDoctorType(String doctorType) {
+		this.doctorType = doctorType;
 	}
 
 	public String getOldLoginIp() {
