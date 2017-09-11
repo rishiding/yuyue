@@ -104,8 +104,7 @@
     					if(res.code == '200'){
     						var time=60;
     						
-    						if (validCode) {
-    							validCode=false;
+    						
     							code.addClass("msgs1");
     							var t=setInterval(function  () {
     								time--;
@@ -117,7 +116,7 @@
     									code.removeClass("msgs1");	
     								}
     							},1000);
-    						}
+    						
     					}else{
     						layer.msg("验证码发送失败");
     						
