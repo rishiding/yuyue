@@ -83,7 +83,7 @@
                         </div>
                     </div>
                 </li>
-               
+               <!-- 
                 <li class="inner innerP">
                     <div class="item-name">验证码：</div>
                     <div class="item-value">
@@ -93,7 +93,7 @@
                         </div>
                     </div>
                 </li>
-               
+                -->
             </ul>
              <input class="weui_btn login-btn weui_btn_primary" type="button" onclick="javascript:reg_click();" value="注册"/>&nbsp;&nbsp;
             </form>
@@ -179,11 +179,12 @@
         });
         function reg_click(){
         	
-    	   
+    	   /**
     	    	if(!codeflag){
     	    		layer.msg("验证码不正确");
     	    		return;
     	    	}
+    	   **/
     	    	console.info($("#jvForm").serialize());
     	    	$.ajax({
     	    		url:"${front}/sms/register",

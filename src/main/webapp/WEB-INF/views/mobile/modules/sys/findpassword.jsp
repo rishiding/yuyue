@@ -46,7 +46,7 @@
                     </div>
                 </li>
                
-                <li class="inner innerP">
+               <!--  <li class="inner innerP">
                     <div class="item-name">验证码：</div>
                     <div class="item-value">
                         <div class="p-wrap">
@@ -54,7 +54,7 @@
                            
                         </div>
                     </div>
-                </li>
+                </li> -->
                <input class="weui_btn login-btn weui_btn_primary" type="button" onclick="javascript:check_click();" value="确认"/>&nbsp;&nbsp;
             </div>
             <div id="pass2" style="display:none">
@@ -174,10 +174,10 @@
 	    		$("#mobile").focus();
 	    		return ;
 	    	}
-	    	if(!codeflag){
+	    	/* if(!codeflag){
 	    		layer.msg("验证码不正确");
 	    		return;
-	    	}
+	    	} */
 	    	$.ajax({
 	    		url:"${front}/sms/findUser",
 				type:"post",
@@ -221,10 +221,10 @@
     	    		}
     	    		
     	    	}
-    	    	if(!codeflag){
+    	    	/* if(!codeflag){
     	    		layer.msg("验证码不正确");
     	    		return;
-    	    	}
+    	    	} */
     	    	$.ajax({
     	    		url:"${front}/sms/resetpassword",
     				type:"post",
