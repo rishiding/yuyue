@@ -18,7 +18,7 @@
 </head>
 <body>
 	<ul class="nav nav-tabs">
-		<li class="active"><a href="${ctx}/reserve/disLog/">就诊病历列表</a></li>
+		<li class="active"><a href="${ctx}/reserve/disLog/list">就诊病历列表</a></li>
 		<shiro:hasPermission name="reserve:disLog:edit"><li><a href="${ctx}/reserve/disLog/form">就诊病历添加</a></li></shiro:hasPermission>
 	</ul>
 	<form:form id="searchForm" modelAttribute="disLog" action="${ctx}/reserve/disLog/" method="post" class="breadcrumb form-search">

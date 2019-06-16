@@ -27,7 +27,7 @@
 </head>
 <body>
 	<ul class="nav nav-tabs">
-		<li><a href="${ctx}/reserve/disLog/">就诊病历列表</a></li>
+		<li><a href="${ctx}/reserve/disLog/list">就诊病历列表</a></li>
 		<li class="active"><a href="${ctx}/reserve/disLog/form?id=${disLog.id}">就诊病历<shiro:hasPermission name="reserve:disLog:edit">${not empty disLog.id?'修改':'添加'}</shiro:hasPermission><shiro:lacksPermission name="reserve:disLog:edit">查看</shiro:lacksPermission></a></li>
 	</ul><br/>
 	<form:form id="inputForm" modelAttribute="disLog" action="${ctx}/reserve/disLog/save" method="post" class="form-horizontal">
